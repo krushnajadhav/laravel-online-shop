@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\AdminLoginController;
-use App\Htpp\Controllers\admin\HomeController;
+use App\Http\Controllers\admin\HomeController;
+use App\Http\Controllers\admin\CategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +31,11 @@ Route::group(['prefix'=>'admin'],function(){
     });
 
     Route::group(['middleware'=>'admin.auth'],function(){
-        Route::get('/login',[HomeController::class,'index'])->name('admin.dashboard');
+        Route::get('/dashboard',[HomeController::class,'index'])->name('admin.dashboard');
+        Route::get('/logout',[HomeController::class,'logout'])->name('admin.logout');
+       //category route
+        Route::get('/categories/create',[CategoryController::class,'create'])->name('categories.create');
+        Route::post('/categories',[CategoryController::class,'store'])->name('categories.store');
         
     });
 });
